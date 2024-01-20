@@ -17,9 +17,9 @@ const { t } = useI18n()
 const numberValidation = computed(() =>
   z
     .string()
+    .regex(/^\d*\.?\d*$/, { message: t('zod.number') })
     .min(1, { message: t('zod.short') })
     .max(2, { message: t('zod.long') })
-    .regex(/^\d*\.?\d*$/, { message: t('zod.number') })
     .refine((data) => parseInt(data) <= 60, { message: t('zod.larger') })
 )
 
