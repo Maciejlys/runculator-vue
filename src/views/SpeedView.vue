@@ -64,10 +64,10 @@ const onSubmit = handleSubmit((values) => {
             </FormField>
           </FormField>
         </div>
+        <div class="flex justify-center w-full" v-if="speed">{{ speed }} km/h</div>
         <Button class="w-full" type="submit">Calculate</Button>
       </form>
     </CardContent>
-    {{ speed }}
   </Card>
 </template>
 
