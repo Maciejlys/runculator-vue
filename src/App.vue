@@ -1,18 +1,11 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import AppHeader from '@/components/AppHeader.vue'
+import SpeedView from '@/views/SpeedView.vue'
 </script>
 
 <template>
-  <header class="bg-background">
-    <div class="bg-background">
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+  <AppHeader />
+  <main class="flex justify-center items-center w-full h-[1200px]">
+    <SpeedView />
+  </main>
 </template>
-
-<style scoped></style>
