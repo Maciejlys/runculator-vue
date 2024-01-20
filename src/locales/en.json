@@ -1,0 +1,13 @@
+{
+  "title": "Speed calculator",
+  "description": "Convert pace to speed",
+  "minutes": "Minutes",
+  "seconds": "Seconds",
+  "calculate": "Calculate",
+  "zod": {
+    "short": "Please enter something",
+    "long": "it cannot be so long",
+    "number": "Please enter not negative number",
+    "larger": "Cannot be larger then 60"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "title": "Kalkulator prędkości",
+  "description": "Przekonwertuj tempo na prędkość",
+  "minutes": "Minuty",
+  "seconds": "Sekundy",
+  "calculate": "Oblicz",
+  "zod": {
+    "short": "Wprowadź wartość",
+    "long": "Wartość jest za długa",
+    "number": "Wprowadź nieujemną liczbę",
+    "larger": "Liczba nie może być większa niż 60"
+  }
+}

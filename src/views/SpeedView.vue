@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
+import { Separator } from '@/components/ui/separator'
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import * as z from 'zod'
@@ -8,23 +9,31 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/comp
 import { Input } from '@/components/ui/input'
 import { ref } from 'vue'
 import { convert } from '@/lib/convert'
+import { useI18n } from 'vue-i18n'
+import { computed } from 'vue'
 
-const numberValidation = z
-  .string()
-  .min(1, { message: 'Please enter' })
-  .max(2, { message: 'It cannot be so long' })
-  .regex(/^\d*\.?\d*$/, { message: 'It should be a non negative number' })
-  .refine((data) => parseInt(data) <= 60, { message: 'Cannot be larger then 60' })
+const { t } = useI18n()
 
-const formSchema = toTypedSchema(
-  z.object({
-    minutes: numberValidation,
-    seconds: numberValidation
-  })
+const numberValidation = computed(() =>
+  z
+    .string()
+    .min(1, { message: t('zod.short') })
+    .max(2, { message: t('zod.long') })
+    .regex(/^\d*\.?\d*$/, { message: t('zod.number') })
+    .refine((data) => parseInt(data) <= 60, { message: t('zod.larger') })
+)
+
+const validationSchema = computed(() =>
+  toTypedSchema(
+    z.object({
+      minutes: numberValidation.value,
+      seconds: numberValidation.value
+    })
+  )
 )
 
 const { handleSubmit } = useForm({
-  validationSchema: formSchema
+  validationSchema
 })
 
 const speed = ref()
@@ -39,15 +48,16 @@ const onSubmit = handleSubmit((values) => {
 <template>
   <Card class="w-[400px]">
     <CardHeader>
-      <CardTitle>Speed calculator</CardTitle>
-      <CardDescription>Convert pace to speed</CardDescription>
+      <CardTitle>{{ $t('title') }}</CardTitle>
+      <CardDescription>{{ $t('description') }}</CardDescription>
+      <Separator />
     </CardHeader>
     <CardContent>
       <form class="w-full space-y-6" @submit="onSubmit">
         <div class="flex gap-2">
           <FormField v-slot="{ componentField }" name="minutes">
             <FormItem>
-              <FormLabel>Minutes</FormLabel>
+              <FormLabel>{{ $t('minutes') }}</FormLabel>
               <FormControl>
                 <Input type="text" placeholder="5" v-bind="componentField" />
               </FormControl>
@@ -55,7 +65,7 @@ const onSubmit = handleSubmit((values) => {
             </FormItem>
             <FormField v-slot="{ componentField }" name="seconds">
               <FormItem>
-                <FormLabel>Seconds</FormLabel>
+                <FormLabel>{{ $t('seconds') }}</FormLabel>
                 <FormControl>
                   <Input type="text" placeholder="30" v-bind="componentField" />
                 </FormControl>
@@ -65,7 +75,7 @@ const onSubmit = handleSubmit((values) => {
           </FormField>
         </div>
         <div class="flex justify-center w-full" v-if="speed">{{ speed }} km/h</div>
-        <Button class="w-full" type="submit">Calculate</Button>
+        <Button class="w-full" type="submit">{{ $t('calculate') }}</Button>
       </form>
     </CardContent>
   </Card>
