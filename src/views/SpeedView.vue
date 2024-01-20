@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { ref } from 'vue'
+import { convert } from '@/lib/convert'
 
 const numberValidation = z
   .string()
@@ -31,8 +32,7 @@ const speed = ref()
 const onSubmit = handleSubmit((values) => {
   const minutes = +values.minutes
   const seconds = +values.seconds
-  const converted = minutes + seconds / 60
-  speed.value = (60 / converted).toFixed(2)
+  speed.value = convert(minutes, seconds)
 })
 </script>
 
